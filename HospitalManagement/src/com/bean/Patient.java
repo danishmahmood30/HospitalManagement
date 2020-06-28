@@ -14,11 +14,15 @@ public class Patient {
 	private String state;
 	private String status;
 	
-	public Patient(int ssnId, int patientId, String patientName, int age, Date dateOfAdmission, String typeOfBed,
-			String address, String city, String state, String status) {
+	public Patient() {
+		
+	}
+	
+	public Patient(int ssnId, String patientName, int age, Date dateOfAdmission, String typeOfBed,
+			String address, String city, String state) {
 		super();
 		this.ssnId = ssnId;
-		this.patientId = patientId;
+		this.patientId = 0;
 		this.patientName = patientName;
 		this.age = age;
 		this.dateOfAdmission = dateOfAdmission;
@@ -26,7 +30,7 @@ public class Patient {
 		this.address = address;
 		this.city = city;
 		this.state = state;
-		this.status = status;
+		this.status = "active";
 	}
 	public int getSsnId() {
 		return ssnId;
