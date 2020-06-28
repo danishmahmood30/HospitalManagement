@@ -1,6 +1,7 @@
 <%@page import="com.util.SessionChecker"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<!-- Home page for Registration Desk Executive -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,4 +18,5 @@
 <body>
 	
 </body>
-</html> 
+</html>
+
