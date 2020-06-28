@@ -16,7 +16,12 @@
 		return;
 	}%>
 <body>
-	
+<center><h1>Registration Executive</h1></center>
+<div>
+	<a href="addPatient.jsp">Add New Patient</a><br>
+	<a href="updatePatient.jsp">Update Patient Details</a><br>
+	<a href="deletePateint.jsp">Delete Patient</a><br>
+	<a href="viewAllPatients.jsp">View all active Patients</a><br>
 </body>
 </html>
 
