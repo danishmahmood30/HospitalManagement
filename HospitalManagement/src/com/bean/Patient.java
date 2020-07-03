@@ -19,7 +19,7 @@ public class Patient {
 	}
 	
 	public Patient(int ssnId, String patientName, int age, Date dateOfAdmission, String typeOfBed,
-			String address, String city, String state) {
+			String address, String city, String state, String status) {
 		super();
 		this.ssnId = ssnId;
 		this.patientId = 0;
@@ -30,7 +30,7 @@ public class Patient {
 		this.address = address;
 		this.city = city;
 		this.state = state;
-		this.status = "active";
+		this.status = status;
 	}
 	public int getSsnId() {
 		return ssnId;

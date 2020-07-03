@@ -52,100 +52,103 @@ public class PatientDao {
 		return patientId;
 	}
 	
-	public Patient viewPatient(int ssnId) {
-		Patient c = new Patient();
+	public Patient viewPatient(int patientId) {
+		Patient p = new Patient();
 		Connection con = DbConnection.getConnection();
-		String sql = "select * from customer where ssnid=?";
+		String sql = "select * from patient where patientid=?";
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, ssnId);
+			ps.setInt(1, patientId);
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				c.setSsnId(rs.getInt(1));
-				c.setPatientId(rs.getInt(2));
-				c.setPatientName(rs.getString(3));
-				c.setAge(rs.getInt(4));
-				c.setAddress(rs.getString(5));
-				c.setState(rs.getString(6));
-				c.setCity(rs.getString(7));
+				p.setSsnId(rs.getInt(1));
+				p.setPatientId(rs.getInt(2));
+				p.setPatientName(rs.getString(3));
+				p.setAge(rs.getInt(4));
+				p.setDateOfAdmission(rs.getDate(5));
+				p.setTypeOfBed(rs.getString(6));
+				p.setAddress(rs.getString(7));
+				p.setCity(rs.getString(8));
+				p.setState(rs.getString(9));
+				p.setStatus(rs.getString(10));
+			}else {
+				System.out.println("no patient");
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return p;
 		}
 		
-		return c;
+		return p;
 	
-	}
-	
-	public Patient viewPatient(int ssnId, boolean update) {
-		System.out.println(patientid);
-		this.patientid=ssnId;
-		Patient c= this.viewPatient(ssnId);
-		return c;
 	}
 	
 	public ArrayList<Patient> viewAll() {
 		
-		ArrayList<Patient> clist = new ArrayList<Patient>();
+		ArrayList<Patient> plist = new ArrayList<Patient>();
 		Connection con = DbConnection.getConnection();
-		String sql = "select * from customer";
+		String sql = "select * from patient where status='active'";
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				Patient c = new Patient();
-				c.setSsnId(rs.getInt(1));
-				c.setPatientId(rs.getInt(2));
-				c.setPatientName(rs.getString(3));
-				c.setAge(rs.getInt(4));
-				c.setAddress(rs.getString(5));
-				c.setState(rs.getString(6));
-				c.setCity(rs.getString(7));
-				clist.add(c);
+				Patient p = new Patient();
+				p.setSsnId(rs.getInt(1));
+				p.setPatientId(rs.getInt(2));
+				p.setPatientName(rs.getString(3));
+				p.setAge(rs.getInt(4));
+				p.setDateOfAdmission(rs.getDate(5));
+				p.setTypeOfBed(rs.getString(6));
+				p.setAddress(rs.getString(7));
+				p.setCity(rs.getString(8));
+				p.setState(rs.getString(9));
+				p.setStatus(rs.getString(10));
+				plist.add(p);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return clist;
+		return plist;
 	
 	}
 	
-	public int updatePatient(Patient patient) {
-		int age, x=0;
-		String name,address;
-		Patient cus = this.viewPatient(patientid);
+	public int updatePatient(Patient patient, int patientId) {
+		int x=0;
 		Connection con = DbConnection.getConnection();
-		String sql = "update customer set name=?, age=?, address=? where ssnid=?";
-		
-		if(patient.getPatientName()==null) {
-			name=cus.getPatientName();
-		}else {
-			name=patient.getPatientName();
-		}
-		if(patient.getAge()==0) {
-			age=cus.getAge();
-		}else {
-			age=patient.getAge();
-		}
-		if(patient.getAddress()==null) {
-			address=cus.getAddress();
-		}else {
-			address=patient.getAddress();
-		}
-		PreparedStatement ps;
+		String sql = "update patient set ssnid=?, name=?, age=?, doj=?, bedtype=?, address=?, city=?, state=?, status=? where patientid=?";
 		try {
-			ps= con.prepareStatement(sql);
-			ps.setString(1, name);
-			ps.setInt(2, age);
-			ps.setString(3, address);
-			ps.setInt(4, patientid);
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, patient.getSsnId());
+			ps.setString(2, patient.getPatientName());
+			ps.setInt(3, patient.getAge());
+			ps.setDate(4, DateConvertor.javaToSqlConvert(patient.getDateOfAdmission()));
+			ps.setString(5, patient.getTypeOfBed());
+			ps.setString(6, patient.getAddress());
+			ps.setString(7, patient.getCity());
+			ps.setString(8, patient.getState());
+			ps.setString(9, patient.getStatus());
+			ps.setInt(10, patientId);
+			x= ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return x;
+	}
+	
+	public int deletePatient(int patientId) {
+		int x=0;
+		Connection con = DbConnection.getConnection();
+		String sql = "delete from patient where patientid=?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, patientId);
 			x=ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,13 +156,14 @@ public class PatientDao {
 		return x;
 	}
 	
-	public int deletePatient(int ssnId) {
+	public int dischargePatient(int patientId) {
 		int x=0;
+		System.out.println("hiiiii");
 		Connection con = DbConnection.getConnection();
-		String sql = "delete from customer where ssnid=?";
+		String sql = "update patient set status='Discharged' where patientid=?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, ssnId);
+			ps.setInt(1, patientId);
 			x=ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

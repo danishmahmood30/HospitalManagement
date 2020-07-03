@@ -1,0 +1,41 @@
+@charset "ISO-8859-1";
+
+table, th, td{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+.A{
+	min-width:5px;
+}
+th,td{
+	height:25px;
+	text-align:center;
+}
+button{
+	background-color:black; color:white;
+}
+div.center{
+	text-align:center;
+}
+.button{
+	background-color:black; 
+	color:white;
+}
+h3{
+	text-align:center;
+}
+.head{
+	background-color:#c0c0c0
+}
+body{
+	background-color:skyblue;
+}
+.error{
+	color:red;
+}
+.row{
+	background-color:white
+}
+h2{
+	text-align:center;
+}

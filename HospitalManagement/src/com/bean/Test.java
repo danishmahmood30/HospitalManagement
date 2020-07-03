@@ -5,6 +5,9 @@ public class Test {
 	private String testName;
 	private int testRate;
 	
+	public Test() {
+		
+	}
 	public Test(int testId, String testName, int testRate) {
 		super();
 		this.testId = testId;

@@ -1,6 +1,6 @@
+<%@page import="com.util.SessionChecker"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="com.util.SessionChecker"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +16,19 @@
 		return;
 	}%>
 <body>
-<p style="color:red"><h3 style="color:red">Error :<%= session.getAttribute("error") %></h3></p>
-<form>
-	<input type="button" value="back" onclick="history.back()">
+
+	<h2>Search Patient</h2>
+
+<div class="center" style="height:300px">
+<form action="${pageContext.request.contextPath}/PatientController" method="post">
+  <label for="patientid">Patient Id:</label>
+  <input type="number" id="patientid" name="patientid" required
+        maxlength="9" size="15">
+  <button class="search" type="submit" name="action" value="search" >
+  	Search
+  </button>
 </form>
-<jsp:include page="footer2.jsp"></jsp:include>
+</div>
+<jsp:include page="footer2.jsp"></jsp:include>	
 </body>
 </html>
