@@ -1,16 +1,15 @@
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-			<h1><a href="#">LifeLine Hospital</a></h1>
-			<div style="margin-top: 10px;">
-			<% if(session.getAttribute("username")!=null) { %>
-				<h2 align="center" style="color:black; diplay:inline; margin-left:100px">Welcome <%=session.getAttribute("username") %>&nbsp;&nbsp;</h2>
-				<form action="LoginController" method="post">
-					<input type="hidden" name="action" value="logout">
-					<input type="submit" value="Logout">
+<div id="header-wrapper" style="background:deepskyblue; position:relative; top:0;width:100%">
+			<h1 style="text-align:center">ABC HOSPITAL MANAGEMENT SYSTEM</h1>
+<% if(session.getAttribute("username")!=null) { %>
+	<jsp:include page="dropdown.jsp"></jsp:include>
+	<form action="LoginController" method="post">
+			<input type="hidden" name="action" value="logout">
+
+					<div style="margin-top: 10px;" align="right">Hello <%=session.getAttribute("username") %>&nbsp;&nbsp;<button style="background-color:black; color:white" type="submit" value="logout">Logout</button></div>
 				</form>
 			<%} %>
-			</div>
-		</div>
-	</div>
+
+<hr style="height:2px; color:black; background-color:black">
+
 </div>
+

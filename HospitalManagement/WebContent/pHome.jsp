@@ -1,11 +1,12 @@
+<%@page import="com.util.SessionChecker"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-   	<%@page import="com.util.SessionChecker" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Pharmacy</title>
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <jsp:include page="header.jsp"></jsp:include>
 <% if(!SessionChecker.isValidSession(session))
@@ -15,6 +16,20 @@
 		return;
 	}%>
 <body>
-<h1>Pharmacist</h1>
+
+	<h2>Pharmacy</h2><br><br>
+
+<div class="center" style="height:300px">
+<form action="${pageContext.request.contextPath}/PatientController" method="post">
+  <label for="patientid">Patient Id:</label>
+  <input type="number" id="patientid" name="patientid" required
+        maxlength="9" size="15">
+  <button class="search" type="submit" name="action" value="searchPharma" >
+  	search patient
+  </button>
+</form>
+</div>
+<jsp:include page="footer2.jsp"></jsp:include>	
 </body>
+
 </html>

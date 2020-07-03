@@ -15,7 +15,7 @@ public class LoginDao {
 		Connection con = DbConnection.getConnection();
 
 		try {
-			String query= "select password from testdb.regex_login where username=? ";
+			String query= "select password from userstore where login=? ";
 			PreparedStatement ps= con.prepareStatement(query);
 			ps.setString(1, username);
 			ResultSet rs=ps.executeQuery();

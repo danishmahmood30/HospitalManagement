@@ -7,6 +7,13 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/cities.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/validations.js"></script>
+<style>
+button{
+ background-color: black;
+ color: white;
+}
+</style>
 </head>
 <jsp:include page="header.jsp"></jsp:include>
 <% if(!SessionChecker.isValidSession(session))
@@ -15,68 +22,76 @@
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 		return;
 	}%>
-<body>
-<div>
-<center><h1>Patient Registration</h1></center>
+<body style="background-color:skyblue;">
+<div style="float:float">
+<h2 style="text-align:center">Patient Registration</h2>
 
-<form action="${pageContext.request.contextPath}/PatientController" method="post" class="patReg">
+<form action="${pageContext.request.contextPath}/PatientController" method="post" name="create" onsubmit="return validateForm()">
   
-  <div class="">
-    <label for="ssnid">Patient SSN ID * </label>
-    <input type="number" name="ssnid" id="" required>
-  </div>
+ <table align="center" >
   
-  <div class="">
-    <label for="name">Patient Name * </label>
-    <input type="text" name="name" id="" required>
-  </div>
+<tbody>
+ <tr>
+      <td><label for="ssnid">Patient SSN ID * </label></td> 
+      <td><input type="number" name="ssnid" id="ssn-id" required></td>
+    </tr>
+ <tr><td></<td><td><span id="ssn_error" style="color:red"></span></td></tr>
+ <tr>
+ <td><label for="name">Patient Name * </label></td>
+ <td><input type="text" name="name" id="pat-name" required></td>
+ <tr><td></<td><td><span id="name_error" style="color:red"></span></td></tr>
+ </tr> 
   
-  <div class="">
-    <label for="age">Patient Age * </label>
-    <input type="text" name="age" id="" required>
-  </div>
+    <tr>
+ <td><label for="age">Patient Age * </label></td>
+ <td><input type="text" name="age" id="pat-age" required></td>
+ <tr><td></<td><td><span id="age_error" style="color:red"></span></td></tr>
+ </tr> 
   
-  <div class="">
-    <label for="admission">Date of Admission * </label>
-    <input type="date" name="date" id="" required>
-  </div>
+  <tr>
+ <td><label for="admission">Date of Admission * </label></td>
+ <td><input type="date" name="date" id="pat-date" required></td>
+ </tr>
   
-  <div class="">
-    <label for="beds">Type of Bed * </label>
-    <select id="bed" name="beds" required>
+  <tr>
+ <td><label for="beds">Type of Bed * </label></td>
+ <td> <select id="bed" name="beds" required>
     	<option value="">Select type of bed</option>
    		<option value="general">General Ward</option>
   		<option value="semi">Semi Sharing</option>
   		<option value="single">Single</option>
-	</select>
-  </div>
+	</select></td>
+ </tr> 
  
-  <div class="">
-    <label for="address">Address * </label>
-    <textarea name="address" rows="4" cols="50">
-	</textarea>
-  </div>
+  <tr>
+ <td><label for="address">Address * </label></td>
+ <td> <textarea name="address" id="addr"rows="4" cols="25">
+	</textarea></td>
+ </tr> 
+ 
+ <tr>
+ <td><label for="state">State * </label></td>
+ <td><select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" required>
+  		</select></td>
+ </tr> 
   
-
-  
-  <div>
-  	<label for="state">State * </label>
-  		<select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" required>
-  		</select>
-  		<br/>
-  	<label for="city" >City *</label>
-		<select id ="state" name="city" class="form-control" required>
+  <tr>
+ <td><label for="city" >City *</label></td>
+ <td><select id ="state" name="city" class="form-control" required>
 		</select>
-	<script language="javascript">print_state("sts");</script>
-  </div>
-  
-  <div class="sub">
-    <input type="submit" name="action" value="submit">
-  </div>
-  <div class="res">
-    <input type="reset" value="Reset">
-  </div>
-</form>
+	<script language="javascript">print_state("sts");</script></td>
+ </tr>
+</tbody>
+</table>
+<br><br><br><br>
 </div>
+<div style="text-align:center">
+  <tr>
+    <td><button type="submit" name="action" value="submit">Submit</button></td>&nbsp;&nbsp;
+    <td><button type="reset" value="Reset">Reset</button></td>
+  </tr>
+</div>
+</form>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

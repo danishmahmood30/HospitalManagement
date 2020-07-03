@@ -14,15 +14,9 @@ public class PatientService {
 		return x;
 	}
 	
-	public Patient viewPatient(int ssnId) {
+	public Patient searchPatient(int patientId) {
 		PatientDao pd =new PatientDao();
-		Patient p = pd.viewPatient(ssnId);
-		return p;
-	}
-	
-	public Patient viewPatient(int ssnId, boolean update) {
-		PatientDao pd =new PatientDao();
-		Patient p = pd.viewPatient(ssnId,update);
+		Patient p = pd.viewPatient(patientId);
 		return p;
 	}
 	
@@ -32,19 +26,26 @@ public class PatientService {
 		return plist;
 	}
 	
-	public int updatePatient(Patient patient) throws SQLException {
+	public int updatePatient(Patient patient, int patientid) throws SQLException {
 		PatientDao pd = new PatientDao();
-		return pd.updatePatient(patient);
+		return pd.updatePatient(patient, patientid);
 	}
 	
-	public Patient deletePatient(int ssnId) {
-		Patient x=this.viewPatient(ssnId);
+	public int deletePatient(int patientId) {
+		PatientDao pd = new PatientDao();
+		int x=pd.deletePatient(patientId);
 		return x;
 	}
 	
 	public int deletePatient(int ssnId, boolean confirmed) {
-		PatientDao cd = new PatientDao();
-		int x= cd.deletePatient(ssnId);
+		PatientDao pd = new PatientDao();
+		int x= pd.deletePatient(ssnId);
+		return x;
+	}
+	
+	public int dischargePatient(int patientId) {
+		PatientDao pd = new PatientDao();
+		int x= pd.dischargePatient(patientId);
 		return x;
 	}
 }

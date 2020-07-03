@@ -60,11 +60,11 @@ public class LoginController extends HttpServlet {
 			
 			String username=request.getParameter("username");
 			String password =request.getParameter("password");
-			String loginType = request.getParameter("loginType");
+			//String loginType = request.getParameter("loginType");
 			
 			LoginService l_service = new LoginService();
 			
-			if(loginType.equals("reg_exec")) {
+			//if(loginType.equals("reg_exec")) {
 				boolean isValid=l_service.registrationExecutiveLogin(username, password);
 				
 				if(isValid) {
@@ -74,12 +74,12 @@ public class LoginController extends HttpServlet {
 					rd.forward(request, response);
 				}else {
 					System.out.println("login failed");
-					request.setAttribute("error", "*invalid credentials");
+					request.setAttribute("loginerror", "*invalid credentials");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				}
-			}
+			//}
 			
-			else if(loginType.equals("pharmacist")) {
+			/*else if(loginType.equals("pharmacist")) {
 				boolean isValid=l_service.pharmacistLogin(username, password);
 				if(isValid) {
 					HttpSession newSession = request.getSession(true);
@@ -88,24 +88,21 @@ public class LoginController extends HttpServlet {
 					rd.forward(request, response);
 				}else {
 					System.out.println("login failed");
-					request.setAttribute("error", "*invalid credentials");
+					request.setAttribute("loginerror", "*invalid credentials");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				}
-			}
+			}*/
 			
-			else if(loginType.equals("diagnostic_exec")) {
-				boolean isValid=l_service.diagnosticExecutiveLogin(username, password);
-				if(isValid) {
-					HttpSession newSession = request.getSession(true);
-					RequestDispatcher rd = request.getRequestDispatcher("dHome.jsp");
-					newSession.setAttribute("username",username );
-					rd.forward(request, response);
-				}else {
-					System.out.println("login failed");
-					request.setAttribute("error", "*invalid credentials");
-					request.getRequestDispatcher("login.jsp").forward(request, response);
-				}
-			}
+			/*
+			 * else if(loginType.equals("diagnostic_exec")) { boolean
+			 * isValid=l_service.diagnosticExecutiveLogin(username, password); if(isValid) {
+			 * HttpSession newSession = request.getSession(true); RequestDispatcher rd =
+			 * request.getRequestDispatcher("dHome.jsp");
+			 * newSession.setAttribute("username",username ); rd.forward(request, response);
+			 * }else { System.out.println("login failed");
+			 * request.setAttribute("loginerror", "*invalid credentials");
+			 * request.getRequestDispatcher("login.jsp").forward(request, response); } }
+			 */
 		}
 		
 		if(action.equals("logout")) {
